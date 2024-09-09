@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TimeSheet Location Check</title>
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <style>
+    /* Basic reset */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    /* Header styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: #FFFFFF;
+      color: #1E6B64;
+    }
+    
+    .logo {
+      height: 50px; /* Adjust based on your logo size */
+    }
+    
+    .company-name {
+    font-size: 1em;
+    font-weight: 700;
+    text-align: center; /* لمحاذاة النص لليمين */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* لتوسيط النص عموديًا */
+    align-items: flex-end; /* لجعل النص يصطف من اليمين */
+    height: 100%; /* لضمان أن يأخذ العنصر كامل الارتفاع المتاح */
+    line-height: 1.2em; /* للمسافة بين السطرين */
+}
+
+    
+    /* Footer styles */
+    footer {
+      background: #1E6B64;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 15px 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .footer-section {
+      flex: 1;
+      padding: 0 10px;
+    }
+    
+    .footer-section h4 {
+      margin: center;
+      font-size: 1em;
+      font-weight: 700;
+    }
+    
+    /* Main content styles */
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+    
+    /* Button styles */
+    button, .form-button {
+      background-color: #ED3C48; /* Dark Green color */
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover, .form-button:hover {
+      background-color: rgb(255, 0, 0); /* Darker green on hover */
+    }
+
+    /* Link styles */
+    a.form-button {
+      display: inline-block;
+      text-decoration: none;
+      color: white;
+      background-color: #1E6B64; /* Blue color */
+      padding: 12px 24px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    a.form-button:hover {
+      background-color: #0a4944; /* Darker blue on hover */
+    }
+    
+    /* Location status text styles */
+    #location-status {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: 500;
+    }
+  </style>
+  <script>
+    function getHijriDay() {
+      var hijriDate = new Date().toLocaleDateString('en-US-u-ca-islamic', { day: 'numeric' });
+      return hijriDate; // لا يتم تنسيق التاريخ الهجري ليكون مكوناً من رقمين
+    }
+
+    function generateVerificationCode() {
+      var gregorianDate = new Date().getDate(); // لا يتم تنسيق اليوم الميلادي ليكون مكوناً من رقمين
+      var hijriDay = getHijriDay();
+      
+      // تجميع التاريخين بجانب بعضهما
+      var code = gregorianDate + hijriDay;
+      
+      return code;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var code = generateVerificationCode();
+      document.getElementById("verification-code").innerText = code;
+    });
+
+    function getLocationAndSubmit() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var userLatitude = position.coords.latitude;
+          var userLongitude = position.coords.longitude;
+
+          var allowedLatitude = 24.58018700761497;
+          var allowedLongitude = 46.69230681163055;
+          var radius = 0.05;
+  
+          var distance = Math.sqrt(Math.pow(userLatitude - allowedLatitude, 2) + Math.pow(userLongitude - allowedLongitude, 2));
+
+          if (distance <= radius) {
+            var verificationCode = generateVerificationCode();
+            document.getElementById("location-status").innerHTML = "Location is allowed. The verification code is: " + verificationCode;
+            document.getElementById("form-link").style.display = "inline-block";
+          } else {
+            document.getElementById("location-status").innerHTML = "The location is outside the allowed range.";
+            document.getElementById("form-link").style.display = "none";
+          }
+        }, function(error) {
+          console.log("Error: " + error.message);
+          document.getElementById("location-status").innerHTML = "Location could not be determined.";
+        });
+      } else {
+        document.getElementById("location-status").innerHTML = "Your browser does not support geolocation.";
+      }
+    }
+  </script>
+</head>
+<body>
+
+<header>
+  <img src="Logo.png" alt="Company Logo" class="logo">
+  <div class="company-name">First Group<br> for Contracting</div>
+</header>
+
+<main>
+  <h2>Namar</h2>
+  <h2>Geolocation and Code Verification</h2>
+  <p>Click the button to verify your location and get the code</p>
+  <button onclick="getLocationAndSubmit()">Check Your Location</button>
+  <p id="location-status"></p>
+  <a id="form-link" href="https://docs.google.com/forms/d/e/1FAIpQLSettWrn10eJnHslJeZoFZbcQM16xC0aLZo3_HKWjjvXx7FsJw/viewform?usp=sf_link" class="form-button" style="display:none;">Go to Time Sheet</a>
+</main>
+
+<footer>
+  <div class="footer-section">
+    <p>&copy; 2024 All rights reserved. Kerolos Thabet</p>
+  </div>
+</footer>
+
+
+</body>
+</html>
