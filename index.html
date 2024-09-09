@@ -138,10 +138,10 @@
           var userLatitude = position.coords.latitude;
           var userLongitude = position.coords.longitude;
 
-          var allowedLatitude = 24.58018700761497;
-          var allowedLongitude = 46.69230681163055;
+          var allowedLatitude = 24.55022204172885;
+          var allowedLongitude = 46.647347033393736;
           var radius = 0.05;
-  
+
           var distance = Math.sqrt(Math.pow(userLatitude - allowedLatitude, 2) + Math.pow(userLongitude - allowedLongitude, 2));
 
           if (distance <= radius) {
