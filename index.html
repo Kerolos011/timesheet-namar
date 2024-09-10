@@ -29,17 +29,16 @@
     }
     
     .company-name {
-    font-size: 1em;
-    font-weight: 700;
-    text-align: center; /* لمحاذاة النص لليمين */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* لتوسيط النص عموديًا */
-    align-items: flex-end; /* لجعل النص يصطف من اليمين */
-    height: 100%; /* لضمان أن يأخذ العنصر كامل الارتفاع المتاح */
-    line-height: 1.2em; /* للمسافة بين السطرين */
-}
-
+      font-size: 1em;
+      font-weight: 700;
+      text-align: center; /* لمحاذاة النص لليمين */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* لتوسيط النص عموديًا */
+      align-items: flex-end; /* لجعل النص يصطف من اليمين */
+      height: 100%; /* لضمان أن يأخذ العنصر كامل الارتفاع المتاح */
+      line-height: 1.2em; /* للمسافة بين السطرين */
+    }
     
     /* Footer styles */
     footer {
@@ -110,6 +109,24 @@
       font-size: 1.2em;
       font-weight: 500;
     }
+
+    /* Verification code styling */
+    #verification-code {
+  font-size: 2em;
+  color: #ED3C48; /* لون النص */
+  font-weight: 700; /* نص عريض */
+  padding: 10px; /* مساحة داخلية أكبر لجعل المربع أكبر */
+  border: 2px solid #ED3C48; /* إضافة إطار */
+  display: inline-block;
+  background-color: #ffe5e7; /* خلفية خفيفة */
+  border-radius: 8px; /* زوايا مدورة */
+  width: 80px; /* عرض محدد لتحديد شكل المربع */
+  height: 80px; /* ارتفاع محدد لتحديد شكل المربع */
+  line-height: 80px; /* لضبط موضع النص عموديًا في المنتصف */
+  text-align: center; /* محاذاة النص في منتصف المربع */
+  margin: 10px auto; /* لإضافة مسافة حول الرمز وجعله في وسط الصفحة */
+}
+
   </style>
   <script>
     function getHijriDay() {
@@ -138,19 +155,22 @@
           var userLatitude = position.coords.latitude;
           var userLongitude = position.coords.longitude;
 
-          var allowedLatitude = 24.55022204172885;
-          var allowedLongitude = 46.647347033393736;
+          var allowedLatitude = 24.58018700761497;
+          var allowedLongitude = 46.69230681163055;
           var radius = 0.05;
-
+        
           var distance = Math.sqrt(Math.pow(userLatitude - allowedLatitude, 2) + Math.pow(userLongitude - allowedLongitude, 2));
 
           if (distance <= radius) {
             var verificationCode = generateVerificationCode();
-            document.getElementById("location-status").innerHTML = "Location is allowed. The verification code is: " + verificationCode;
+            document.getElementById("location-status").innerHTML = "Location is allowed. The verification code is:";
+            document.getElementById("verification-code").style.display = "block"; // إظهار الرمز
+            document.getElementById("verification-code").innerText = verificationCode; // وضع الرمز في سطر منفصل
             document.getElementById("form-link").style.display = "inline-block";
           } else {
             document.getElementById("location-status").innerHTML = "The location is outside the allowed range.";
             document.getElementById("form-link").style.display = "none";
+            document.getElementById("verification-code").style.display = "none"; // إخفاء الرمز في حالة عدم السماح
           }
         }, function(error) {
           console.log("Error: " + error.message);
@@ -175,7 +195,8 @@
   <p>Click the button to verify your location and get the code</p>
   <button onclick="getLocationAndSubmit()">Check Your Location</button>
   <p id="location-status"></p>
-  <a id="form-link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9xq8gmaiWMBY3n9CAKQbqbj__D9wYgKpXiOsVYEi7Eqdl2A/viewform?usp=sf_link" class="form-button" style="display:none;">Go to Time Sheet</a>
+  <div id="verification-code" style="display:none;"></div> <!-- وضع الرمز في سطر منفصل -->
+  <a id="form-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfNZcfiUDgDiHgUXh2wYTtTRV7TnnC2ix7zWAA1PWkK1MqSqw/viewform?usp=sf_link" class="form-button" style="display:none;">Go to Time Sheet</a>
 </main>
 
 <footer>
@@ -183,7 +204,6 @@
     <p>&copy; 2024 All rights reserved. Kerolos Thabet</p>
   </div>
 </footer>
-
 
 </body>
 </html>
