@@ -12,95 +12,114 @@
       margin: 0;
       padding: 0;
       font-family: 'Roboto', sans-serif;
+      box-sizing: border-box;
     }
-    
+
+    /* Responsive design */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: space-between;
+    }
+
     /* Header styles */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 10px 5%;
       background: #FFFFFF;
       color: #1E6B64;
-    }
-    
-    .logo {
-      height: 50px; /* Adjust based on your logo size */
-    }
-    
-    .company-name {
-      font-size: 1em;
-      font-weight: 700;
-      text-align: center; /* لمحاذاة النص لليمين */
-      display: flex;
-      flex-direction: column;
-      justify-content: center; /* لتوسيط النص عموديًا */
-      align-items: flex-end; /* لجعل النص يصطف من اليمين */
-      height: 100%; /* لضمان أن يأخذ العنصر كامل الارتفاع المتاح */
-      line-height: 1.2em; /* للمسافة بين السطرين */
-    }
-    
-    /* Footer styles */
-    footer {
-      background: #1E6B64;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 15px 20px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
     }
     
-    .footer-section {
-      flex: 1;
-      padding: 0 10px;
+    .logo {
+      height: 50px;
+      max-width: 100%;
     }
     
-    .footer-section h4 {
-      margin: center;
-      font-size: 1em;
+    .company-name {
+      font-size: 1.2em;
       font-weight: 700;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      line-height: 1.2em;
+      text-align: right;
+      flex-grow: 1;
     }
-    
+
+    @media (max-width: 768px) {
+      .company-name {
+        font-size: 1em;
+        text-align: center;
+        align-items: center;
+      }
+
+      header {
+        padding: 10px 20px;
+      }
+    }
+
     /* Main content styles */
     main {
-      padding: 20px;
+      flex: 1;
+      padding: 20px 5%;
       text-align: center;
+      padding-bottom: 100px;
     }
     
+    h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+
     /* Button styles */
     button, .form-button {
-      background-color: #ED3C48; /* Dark Green color */
+      background-color: #ED3C48;
       color: white;
       border: none;
-      padding: 12px 24px;
-      font-size: 1em;
+      padding: 8px 16px; /* Reduced padding */
+      font-size: 0.9em; /* Reduced font size */
       cursor: pointer;
       border-radius: 5px;
       transition: background-color 0.3s ease;
+      max-width: 100%;
+      width: auto; /* Adjust width to fit content */
+      display: block; /* Ensure button takes up full line */
+      margin: 10px auto; /* Center horizontally with spacing */
     }
 
     button:hover, .form-button:hover {
-      background-color: rgb(255, 0, 0); /* Darker green on hover */
+      background-color: rgb(255, 0, 0);
     }
 
     /* Link styles */
     a.form-button {
-      display: inline-block;
+      display: block;
       text-decoration: none;
       color: white;
-      background-color: #1E6B64; /* Blue color */
-      padding: 12px 24px;
+      background-color: #1E6B64;
+      padding: 8px 16px; /* Reduced padding */
       border-radius: 5px;
       transition: background-color 0.3s ease;
+      margin: 10px auto; /* Center horizontally with spacing */
     }
 
     a.form-button:hover {
-      background-color: #0a4944; /* Darker blue on hover */
+      background-color: #0a4944;
     }
     
     /* Location status text styles */
@@ -112,33 +131,113 @@
 
     /* Verification code styling */
     #verification-code {
-  font-size: 2em;
-  color: #ED3C48; /* لون النص */
-  font-weight: 700; /* نص عريض */
-  padding: 10px; /* مساحة داخلية أكبر لجعل المربع أكبر */
-  border: 2px solid #ED3C48; /* إضافة إطار */
-  display: inline-block;
-  background-color: #ffe5e7; /* خلفية خفيفة */
-  border-radius: 8px; /* زوايا مدورة */
-  width: 80px; /* عرض محدد لتحديد شكل المربع */
-  height: 80px; /* ارتفاع محدد لتحديد شكل المربع */
-  line-height: 80px; /* لضبط موضع النص عموديًا في المنتصف */
-  text-align: center; /* محاذاة النص في منتصف المربع */
-  margin: 10px auto; /* لإضافة مسافة حول الرمز وجعله في وسط الصفحة */
-}
+      font-size: 4vw; /* Adjusted based on screen size */
+      color: #ED3C48;
+      font-weight: 700;
+      border: 0.2vw solid #ED3C48; /* Reduced border width */
+      display: block;
+      align-items: center; /* Center text vertically */
+      justify-content: center; /* Center text horizontally */
+      background-color: #ffe5e7;
+      border-radius: 10px; /* Slightly rounded corners */
+      width: auto;
+      height: auto;
+      padding: 1vw; /* Adjusted padding to fit text size */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center; /* Center text horizontally */
+      line-height: 1; /* Normal line height to avoid extra space */
+      margin: 20px auto; /* Center horizontally */
+    }
 
+    #verification-code:hover {
+      transform: scale(1.1);
+    }
+
+    /* Responsive rules */
+    @media (max-width: 768px) {
+      main {
+        padding: 10px 5%;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+
+      #verification-code {
+        font-size: 6vw;
+        padding: 1.5vw; /* Adjusted padding */
+      }
+
+      button, .form-button {
+        padding: 6px 12px; /* Further reduced padding */
+        font-size: 0.8em; /* Further reduced font size */
+      }
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 10px 2%;
+      }
+
+      h2 {
+        font-size: 1.2em;
+      }
+
+      p {
+        font-size: 0.9em;
+      }
+
+      #verification-code {
+        font-size: 8vw;
+        padding: 2vw; /* Adjusted padding for very small screens */
+      }
+
+      button, .form-button {
+        padding: 4px 8px; /* Minimum padding */
+        font-size: 0.7em; /* Minimum font size */
+      }
+    }
+
+    /* Footer styles */
+    footer {
+      background: #1E6B64;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 15px 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      box-sizing: border-box;
+    }
+    
+    .footer-section {
+      flex: 1;
+      padding: 0 10px;
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        padding: 10px;
+      }
+
+      .footer-section p {
+        font-size: 0.8em;
+      }
+    }
   </style>
   <script>
     function getHijriDay() {
       var hijriDate = new Date().toLocaleDateString('en-US-u-ca-islamic', { day: 'numeric' });
-      return hijriDate; // لا يتم تنسيق التاريخ الهجري ليكون مكوناً من رقمين
+      return hijriDate;
     }
 
     function generateVerificationCode() {
-      var gregorianDate = new Date().getDate(); // لا يتم تنسيق اليوم الميلادي ليكون مكوناً من رقمين
+      var gregorianDate = new Date().getDate();
       var hijriDay = getHijriDay();
       
-      // تجميع التاريخين بجانب بعضهما
       var code = gregorianDate + hijriDay;
       
       return code;
@@ -155,8 +254,8 @@
           var userLatitude = position.coords.latitude;
           var userLongitude = position.coords.longitude;
 
-          var allowedLatitude = 24.58018700761497;
-          var allowedLongitude = 46.69230681163055;
+          var allowedLatitude = 26.318402511735453;
+          var allowedLongitude = 50.223041024038345;
           var radius = 0.05;
         
           var distance = Math.sqrt(Math.pow(userLatitude - allowedLatitude, 2) + Math.pow(userLongitude - allowedLongitude, 2));
@@ -164,13 +263,12 @@
           if (distance <= radius) {
             var verificationCode = generateVerificationCode();
             document.getElementById("location-status").innerHTML = "Location is allowed. The verification code is:";
-            document.getElementById("verification-code").style.display = "block"; // إظهار الرمز
-            document.getElementById("verification-code").innerText = verificationCode; // وضع الرمز في سطر منفصل
-            document.getElementById("form-link").style.display = "inline-block";
+            document.getElementById("verification-code").style.display = "block";
+            document.getElementById("form-link").style.display = "block";
           } else {
             document.getElementById("location-status").innerHTML = "The location is outside the allowed range.";
             document.getElementById("form-link").style.display = "none";
-            document.getElementById("verification-code").style.display = "none"; // إخفاء الرمز في حالة عدم السماح
+            document.getElementById("verification-code").style.display = "none";
           }
         }, function(error) {
           console.log("Error: " + error.message);
@@ -195,7 +293,7 @@
   <p>Click the button to verify your location and get the code</p>
   <button onclick="getLocationAndSubmit()">Check Your Location</button>
   <p id="location-status"></p>
-  <div id="verification-code" style="display:none;"></div> <!-- وضع الرمز في سطر منفصل -->
+  <div id="verification-code" style="display:none;"></div>
   <a id="form-link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9xq8gmaiWMBY3n9CAKQbqbj__D9wYgKpXiOsVYEi7Eqdl2A/viewform?usp=sf_link" class="form-button" style="display:none;">Go to Time Sheet</a>
 </main>
 
